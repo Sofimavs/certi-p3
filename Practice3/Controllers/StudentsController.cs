@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Configuration;
 
-namespace Practica2.Controllers
+namespace Practice3.Controllers
 {
     [ApiController]
     [Route("[controller]")]
@@ -23,7 +23,7 @@ namespace Practica2.Controllers
         {
             string projectTitle = _config.GetSection("Project").GetSection("Title").Value;
             string dbConnection = _config.GetConnectionString("Database");
-            Console.Out.WriteLine($"We are connecting to ... {dbConnection}")
+            Console.Out.WriteLine($"We are connecting to ... {dbConnection}");
            
             return new List<Student>(){
                 new Student(){Name = $"Sofia Vargas from env: {projectTitle}"},
