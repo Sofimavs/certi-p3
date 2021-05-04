@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Configuration;
 
 namespace Practica2.Controllers
 {
@@ -11,15 +12,21 @@ namespace Practica2.Controllers
     [Route("[controller]")]
     public class StudentsController : ControllerBase
     {
-        public StudentsController()
+        private readonly IConfiguration _config;
+        public StudentsController(IConfiguration config)
         {
+            _config = config;
 
         }
                 [HttpGet]
         public List<Student> GetStudent()
         {
+            string projectTitle = _config.GetSection("Project").GetSection("Title").Value;
+            string dbConnection = _config.GetConnectionString("Database");
+            Console.Out.WriteLine($"We are connecting to ... {dbConnection}")
+           
             return new List<Student>(){
-                new Student(){Name = "Sofia Vargas"},
+                new Student(){Name = $"Sofia Vargas from env: {projectTitle}"},
                 new Student(){Name = "Andi Guardia"},
                 new Student(){Name = "Gabriel Perez"},
                 new Student(){Name = "Ale Ledezma"},
